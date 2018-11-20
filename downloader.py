@@ -1,6 +1,7 @@
 import urllib.request
 import feedparser
 import datetime
+from raw_page import RawPageData
 
 
 def download_html(url):
@@ -12,10 +13,11 @@ def download_html(url):
     '''
     req = urllib.request.Request(url)
     with urllib.request.urlopen(req) as response:
-        page = response.read()
+        charset = response.info().get_content_charset()
+        page = response.read().decode(charset)
         statuscode= response.getcode()
         header = response.getheaders()
-    return (url, datetime.datetime.now(), "http", statuscode ,header, page)
+    return RawPageData(url, datetime.datetime.now(), "http", statuscode, header, page)
 
 
 def download_rss(url):
@@ -26,6 +28,6 @@ def download_rss(url):
     :return: XML file as string
     '''
     feed = feedparser.parse(url)
-    return (url, datetime.datetime.now(), "rss", feed.status ,feed.headers, feed.entries)
+    return RawPageData(url, datetime.datetime.now(), "rss", feed.status, feed.headers, feed.entries)
 
 
