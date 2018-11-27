@@ -1,2 +1,3 @@
-from basicdownloader import BasicDownloader
-from downloader import Downloader
+from downloader.downloader import Downloader
+from downloader.basicdownloader import BasicDownloader
+from downloader.improveddownloader import ImprovedDownloader

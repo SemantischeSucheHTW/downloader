@@ -16,7 +16,3 @@ class Scheduler:
     '''
     def getURL(self):
         pass
-
-    def isQueueEmpty(self):
-        return self.queue.empty()
-

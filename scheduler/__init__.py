@@ -1,3 +1,4 @@
-from basicnonblockingscheduler import BasicNonBlockingScheduler
-from basicscheduler import BasicScheduler
-from scheduler import Scheduler
+from scheduler.scheduler import Scheduler
+from scheduler.basicscheduler import BasicScheduler
+from scheduler.basicnonblockingscheduler import BasicNonBlockingScheduler
+from scheduler.improvedscheduler import ImprovedScheduler

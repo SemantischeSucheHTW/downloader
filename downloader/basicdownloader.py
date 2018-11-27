@@ -1,9 +1,5 @@
-import datetime
-import feedparser
-import urllib.request
-
-from downloader import Downloader
-from raw_page import RawPageData
+from downloader.downloader import Downloader
+from rawpagedata import RawPageData
 
 class BasicDownloader(Downloader):
 
@@ -12,13 +8,15 @@ class BasicDownloader(Downloader):
         self.mode = mode
         self.database_interface = database_interface
 
-    #simply downloads all urls from the scheduler queue and then terminates
     def run(self):
-        while (not scheduler.isQueueEmpty()):
-            currentURL = scheduler.getURL
+        while True:
+            currentURL = self.scheduler.getURL()
             if (self.mode=="html"):
-                data = download_html(currentURL)
+                data = self.download_html(currentURL)
             if (self.mode=="rss"):
-                data = downloader_rss(currentURL)
-            self.database_interface.send(data)
+                data = self.downloader_rss(currentURL)
+
+            if data:
+              print(f"Downloaded {currentURL}")
+              self.database_interface.send(data)
 

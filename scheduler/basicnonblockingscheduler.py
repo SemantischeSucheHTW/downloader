@@ -1,3 +1,4 @@
+from scheduler.scheduler import Scheduler
 from threading import Thread
 
 class BasicNonBlockingScheduler(Scheduler):
@@ -19,4 +20,4 @@ class BasicNonBlockingScheduler(Scheduler):
         
     def getURL(self):
         #Thread(target=lambda: get(), args=None)
-        return self.queue.get()
+        return self.queue.get(block=False)

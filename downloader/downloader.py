@@ -1,3 +1,9 @@
+from rawpagedata import RawPageData
+
+import datetime
+import feedparser
+import urllib.request
+
 class Downloader:
 
     '''
@@ -12,7 +18,7 @@ class Downloader:
     def run(self):
         pass
 
-    def download_html(url):
+    def download_html(self, url):
         '''
         This method gets an URL and download the web page as HTML file
         
@@ -21,14 +27,18 @@ class Downloader:
         '''
         req = urllib.request.Request(url)
         with urllib.request.urlopen(req) as response:
-            charset = response.info().get_content_charset()
-            page = response.read().decode(charset)
-            statuscode= response.getcode()
-            header = response.getheaders()
+          if not response.getheader("Content-Type").startswith("text/html"):
+              print(response.getheader('Content-Type'))
+              return None
+
+          charset = response.info().get_content_charset()
+          page = response.read().decode(charset)
+          statuscode= response.getcode()
+          header = response.getheaders()
         return RawPageData(url, datetime.datetime.now(), statuscode, header, page)
     
     
-    def download_rss(url):
+    def download_rss(self, url):
         '''
         This method gets an URL and downloads the web page as XML file
         

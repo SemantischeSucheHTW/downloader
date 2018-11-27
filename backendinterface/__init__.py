@@ -1,2 +1,2 @@
-from backendinterface import BackendInterface
-from kafkabackendinterface import KafkaBackendInterface
+from backendinterface.backendinterface import BackendInterface
+from backendinterface.kafkabackendinterface import KafkaBackendInterface

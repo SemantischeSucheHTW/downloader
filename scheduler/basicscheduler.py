@@ -1,5 +1,5 @@
 from queue import Queue
-from scheduler import Scheduler
+from scheduler.scheduler import Scheduler
 
 class BasicScheduler(Scheduler):
     
@@ -8,12 +8,11 @@ class BasicScheduler(Scheduler):
          
         file = open(urlFilePath, "r") 
         for line in file:
-            self.queue.put(line)
+            self.queue.put(line.rstrip())
         #print("loaded",self.queue.qsize(),"URLs")
         
     def putURL(self, url):
         self.queue.put(url)
         
     def getURL(self):
-        return self.queue.get()
-
+        return self.queue.get(block=True)

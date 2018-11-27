@@ -1,12 +1,16 @@
-from backendinterface import BackendInterface
+from backendinterface.backendinterface import BackendInterface
 from kafka import KafkaProducer
+
 import json
 
 class KafkaBackendInterface(BackendInterface):
-    def __init__(self, config, topic):
+    def __init__(self, config):
         config["key_serializer"] = str.encode
         config["value_serializer"] = lambda v: json.dumps(v).encode('utf-8')
-        self.producer = KafkaProducer(**config)
+
+        c_copy = dict(config)
+        topic = c_copy.pop("topic")
+        self.producer = KafkaProducer(**c_copy)
         self.topic = topic
 
     def send(self, rawPageData):
